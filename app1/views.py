@@ -43,7 +43,7 @@ def fnLogin(request):
     except Exception as e:
         print(e)
         return render(request,'index.html',{"message":"invalid username or password"})
-# def fnChangepassword(request):
+def fnChangepassword(request):
     # try:
     #     user_id=request.session['user']
     #     userObj=login.objects.get(id=user_id)
@@ -53,7 +53,7 @@ def fnLogin(request):
     #         userObj.password=newpassword
     #         userObj.save()
     #         return render
-    # return render(request,'change_password.html')
+    return render(request,'change_password.html')
 
     # try:
     #     user_id=request.session['user']
@@ -66,3 +66,5 @@ def fnLogin(request):
 def fnLogins(request):
     return render(request,'login.html')   
     
+def fntest(request):
+    return render(request,'test.html')
