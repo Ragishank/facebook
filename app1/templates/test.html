@@ -7,12 +7,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        body{
-            background-image: url("{% static 'image/connect.png' %}");
-        }
+       
     </style>
 </head>
 <body>
-    
+    <form action="/test/" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="text" placeholder="name" name="name"><br>
+        <input type="text" name="address" placeholder="address">
+        <input type="file" name="files"><br>
+        <button type="submit">Save</button>
+    </form>
+    <table border="1">
+        <tr>
+            <td>name</td>
+            <td>address</td>
+            <td>image</td>
+        </tr>
+        {% for i in obj1 %}
+        <tr>
+           
+            <td>{{i.name}}</td>
+            <td>{{i.address}}</td>
+            <td>
+                <img src="/app1/media/{{i.img}}" alt="" width="150" height="100">
+            </td>
+
+        </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>

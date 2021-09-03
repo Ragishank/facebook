@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+</head>
+<body>
+ 
+    <input type="text" id="name" placeholder="name">
+    <input type="text" id="address" placeholder="address" >
+    <input type="text" id="email"placeholder="email">
+    <button type="submit" onclick="fnAjaxex()">Save</button>
+
+    <script>
+        $.ajaxSetup({
+ 	 		headers: { "X-CSRFToken": '{{csrf_token}}' }
+		});
+        function fnAjaxex(){
+            $.ajax({
+                url:'/add_ajax/',
+                type:'POST',
+                data:{
+                    name : $('#name').val(),
+                    address : $('#address').val(),
+                    email : $('#email').val(),
+                },
+                success:function(response){
+                    alert(response.message)
+                },
+            })
+        }
+    </script>
+</body>
+</html>

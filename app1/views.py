@@ -1,5 +1,8 @@
 from django.shortcuts import render
-from . models import login,user
+from . models import *
+from random import random
+from django.core.files.storage import FileSystemStorage
+from django.http import JsonResponse
 # Create your views here.
 def fnIndex(request):
     try:
@@ -44,27 +47,51 @@ def fnLogin(request):
         print(e)
         return render(request,'index.html',{"message":"invalid username or password"})
 def fnChangepassword(request):
-    # try:
-    #     user_id=request.session['user']
-    #     userObj=login.objects.get(id=user_id)
-    #     password=request.POST['oldpass']
-    #     newpassword=request.POST['npass']
-    #     if(userObj.password==password):
-    #         userObj.password=newpassword
-    #         userObj.save()
-    #         return render
+    try:
+        user_id=request.session['user']
+        userObj=login.objects.get(id=user_id)
+        password=request.POST['oldpass']
+        newpassword=request.POST['npass']
+        if(userObj.password==password):
+            userObj.password=newpassword
+            userObj.save()
+            return render(request,'change_password.html',{'message':'password changed'})
+        return render(request,'change_password.html',{'message':'password not matching'})
+   
+    except Exception as e:
+        print(e)
     return render(request,'change_password.html')
-
-    # try:
-    #     user_id=request.session['user']
-    #     userObj=login.objects.get(id=user_id)
-    #     oser_obj=user.object.get(id=userObj.user_id_id)
-    #     return render(request,'profile.html',{"user":userObj,"us1":oser_obj})
-
-
-
+def fnLogout(request):
+    del request.session['user']
+    return render(request,'index.html')         
 def fnLogins(request):
     return render(request,'login.html')   
     
 def fntest(request):
-    return render(request,'test.html')
+    if(request.method=="POST"):
+        name=request.POST['name']
+        addr=request.POST['address']
+        files=request.FILES['files']
+        files_name=str(random())+files.name
+        fileObj=FileSystemStorage()
+        fileObj.save(files_name,files)
+        profObj=prof(name=name,address=addr,img=files_name)
+        profObj.save()
+        return redirect('test')
+    obj2=prof.objects.all()
+    return render(request,'test.html',{'obj1':obj2})
+    # return render(request,'test.html')
+
+def fnAjax(request):
+    return render(request,'ajaxex.html')   
+
+def fnadd_Ajax(request):
+    name=request.POST['name']
+    contact=request.POST['address']
+    email=request.POST['email']
+
+    obj=ajaxex(name=name,address=contact,email=email)
+    obj.save()
+    return JsonResponse({'message':'data inserted'})  
+def fnEdit(request):
+    return render(request,'manage_profile.html')
