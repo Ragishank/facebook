@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <form action="/userdelete/" method="POST">
+        {% csrf_token %}
+    <table>
+        <tr>
+            <td>User id</td>
+            <td>username</td>
+            <td>first name</td>
+            <td>Surname</td>
+            <td>Date</td>
+            <td>gender</td>
+            <td>Action</td>
+        </tr>
+        {% for i in user %}
+        <tr>
+        <td id="us_id">{{i.id}}</td>
+        <td>{{i.firstname}}</td>
+        <td>{{i.surname}}</td>
+        <td>{{i.dob}}</td>
+        <td>{{i.gender}}</td>
+        <td><button type="submit"><i class="fa fa-trash" style="font-size:40px">&nbsp;</i></button></td>
+    </tr>
+        {% endfor %}
+    </table>
+    {{msg}}
+</form>
+</body>
+</html>

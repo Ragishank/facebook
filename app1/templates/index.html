@@ -131,7 +131,13 @@
                                   <option value="">Day</option>
                                   <script> 
                                   for(i=1;i<=31;i++) {
-                                    document.write("<option value='"+i+"'>"+i+"</option>")
+                                      if(i<10){
+                                        document.write("<option value='"+0+i+"'>"+i+"</option>") 
+                                      }
+                                      else{
+                                        document.write("<option value='"+i+"'>"+i+"</option>")
+                                      }
+                                    
                                   }
                                   </script>
                                 </select>
@@ -139,14 +145,21 @@
                                   <option value="">Month</option>
                                   <script>
                                      var  months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-                                     for(i=0;i<12;i++) {
-                                    document.write("<option value='"+i+"'>"+months[i]+"</option>")
+                                     for(i=1;i<12;i++) {
+                                        if(i<10){
+                                            document.write("<option value='"+0+i+"'>"+months[i-1]+"</option>")
+                                        } 
+                                        else{
+                                            document.write("<option value='"+i+"'>"+months[i]+"</option>")
+                                        }  
+                                    
                                   }
                                 </script>
                                 </select>
                                 <select name="year" id="year">
                                   <option value="">Year</option>
                                   <script> 
+                                 
                                   for(i=1993;i<= (new Date().getFullYear());i++) {
                                     document.write("<option value='"+i+"'>"+i+"</option>")
                                   }

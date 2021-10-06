@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="">
+        <select name="select1" id="my-select">
+            <!-- <script>
+                dob=new Date('{{dob}}')
+                y=dob.getFullYear()
+                selectedOption = selectBox.options[y];
+                document.querySelector('#my-select').value=y
+            </script> -->
+             <script>
+                 y=new Date('{{dob}}').getDay();
+                 document.write("<option value='"+y+"'>"+y+"</option>")
+             </script>
+            
+            <script>
+              for(i=1993;i<=(new Date().getFullYear());i++) {
+                  
+                    document.write("<option value='"+i+"'>"+i+"</option>")
+                                  }
+            </script>
+        </select>
+    <input type="radio" value="male" id='m' name="gender">male
+    <input type="radio" name="gender" id="f" value="female">Female
+    <script>
+        gen='{{gen}}'
+        if(gen=='male'){
+            document.getElementById('m').checked=true;
+        }
+        else{
+            document.getElementById('f').checked=true;
+        }
+    </script>
+    </form>
+    
+</body>
+</html>

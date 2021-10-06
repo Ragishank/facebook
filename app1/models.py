@@ -6,7 +6,7 @@ class user(models.Model):
     surname=models.CharField(max_length=30)
     dob=models.DateField()
     gender=models.CharField(max_length=20)
-    img=models.CharField(max_length=100)
+    # img=models.CharField(max_length=100)
 
 class login(models.Model):
     username=models.CharField(max_length=50)

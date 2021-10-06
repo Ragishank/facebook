@@ -3,6 +3,9 @@ from . models import *
 from random import random
 from django.core.files.storage import FileSystemStorage
 from django.http import JsonResponse
+from app1.serializers import user_serializer
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser
 # Create your views here.
 def fnIndex(request):
     try:
@@ -77,7 +80,7 @@ def fntest(request):
         fileObj.save(files_name,files)
         profObj=prof(name=name,address=addr,img=files_name)
         profObj.save()
-        return redirect('test')
+        # return redirect('test.html')
     obj2=prof.objects.all()
     return render(request,'test.html',{'obj1':obj2})
     # return render(request,'test.html')
@@ -94,4 +97,49 @@ def fnadd_Ajax(request):
     obj.save()
     return JsonResponse({'message':'data inserted'})  
 def fnEdit(request):
-    return render(request,'manage_profile.html')
+    # if(request.method=='POST'):
+    #     mob_email=request.POST['mob_email']
+    #     us_obj=login.objects.filter(username=mob_email).exists()
+    #     if us_obj==False:
+            # fname=request.POST['firstname']
+            # sname=request.POST['surname']
+            # print(mob_email)
+            # password=request.POST['password']
+            # day=request.POST['day']
+            # month=request.POST['month']
+            # year=request.POST['year']
+            # date=year+'-'+month+'-'+day
+            # gender=request.POST['gender']
+    user=request.session['user']
+    print((user))
+    usrObj=login.objects.select_related('user_id').filter(id=user)
+    print(usrObj)
+    return render(request,'manage_profile.html',{'userObj':usrObj})
+@csrf_exempt
+def fnSerial(request):
+    if request.method=='GET':
+        ajaxObj=ajaxex.objects.all()
+        serialUserData=user_serializer(ajaxObj,many=True)
+        return JsonResponse(serialUserData.data,safe=False)
+    elif request.method=='POST':
+        userdata=JSONParser().parse(request)
+        sdata=user_serializer(data=userdata)
+        if sdata.is_valid():
+            sdata.save()
+            return JsonResponse('data inserted successfully',safe=False)
+        return JsonResponse('error',safe=False)
+def fnSample(request):
+    obj=user.objects.all()
+    return render(request,'sampleuser.html',{'user':obj})
+
+def fnUserdelete(request):
+    if request.method=='POST':
+        us_id=request.POST['us_id']
+        print(us_id)
+        userObj=user.objects.get(id=us_id).delele()
+        return render(request,'sampleuser.html',{'msg':"user deleted"})
+    return render(request,'sampleuser.html',{'msg':"failed"})
+def fnTestcase(request):
+    dob='1993-11-20'
+    gender='female'
+    return render(request,'select.html',{'dob':dob,'gen':gender})

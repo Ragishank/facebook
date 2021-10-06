@@ -10,5 +10,9 @@ urlpatterns = [
    path('ajaxex/',views.fnAjax,name='ajaxex'),
    path('add_ajax/',views.fnadd_Ajax,name='add_ajax'),
    path('logout/',views.fnLogout,name='logout'),
-   path('edit/',views.fnEdit,name='edit')
+   path('edit/',views.fnEdit,name='edit'),
+   path('serial/',views.fnSerial,name="serial"),
+   path('sample/',views.fnSample,name="sample"),
+   path('userdelete/',views.fnUserdelete,name='userdelete'),
+   path('testcase/',views.fnTestcase,name='testcase')
 ]
