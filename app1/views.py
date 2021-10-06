@@ -136,7 +136,7 @@ def fnUserdelete(request):
     if request.method=='POST':
         us_id=request.POST['us_id']
         print(us_id)
-        userObj=user.objects.get(id=us_id).delele()
+        userObj=user.objects.get(id=us_id).delete()
         return render(request,'sampleuser.html',{'msg':"user deleted"})
     return render(request,'sampleuser.html',{'msg':"failed"})
 def fnTestcase(request):
